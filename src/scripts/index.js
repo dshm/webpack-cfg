@@ -1,5 +1,5 @@
 import "../styles/index.scss";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.info("loaded...");
+  document.body.innerHTML = "DOM Loaded...";
 });
