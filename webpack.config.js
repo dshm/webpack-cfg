@@ -1,6 +1,6 @@
 const path = require("path");
-const eslintFormatter = require("eslint-friendly-formatter");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const eslintFormatter = require("eslint-friendly-formatter");
 
 const config = {
   mode: "development",
@@ -19,7 +19,7 @@ const config = {
     watchContentBase: true
   },
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js"]
   },
   module: {
     strictExportPresence: true,
@@ -80,8 +80,22 @@ const config = {
             }
           },
           {
-            test: /\.scss$/,
-            use: ["style-loader", "css-loader", "sass-loader"]
+            // Apply rule for .sass, .scss or .css files
+            test: /\.(sa|sc|c)ss$/,
+            use: [
+              { loader: "style-loader" },
+              { loader: "css-loader", options: { importLoaders: 2 } },
+              {
+                loader: "postcss-loader",
+                options: {
+                  ident: "postcss",
+                  config: {
+                    path: path.resolve(__dirname, "./postcss.config.js")
+                  }
+                }
+              },
+              "sass-loader"
+            ]
           }
         ]
       }
