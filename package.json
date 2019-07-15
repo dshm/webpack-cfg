@@ -15,8 +15,8 @@
   "license": "ISC",
   "homepage": "https://github.com/dshm/webpack-cfg#readme",
   "scripts": {
-    "start": "npx webpack-dev-server --hot",
-    "build": "npx webpack --config webpack.config.js"
+    "start": "npx webpack-dev-server --config webpack.dev.js --hot",
+    "build": "npx webpack --config webpack.prod.js"
   },
   "browserslist": [
     "last 2 version",
@@ -35,14 +35,12 @@
     "eslint": "^6.0.1",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "file-loader": "^4.0.0",
-    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
@@ -56,5 +54,11 @@
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {
+    "webpack-notifier": "^1.8.0",
+    "html-webpack-plugin": "^3.2.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "copy-webpack-plugin": "^5.0.3"
   }
 }

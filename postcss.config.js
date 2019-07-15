@@ -3,7 +3,6 @@ module.exports = ctx => {
     plugins: {
       "postcss-import": {},
       "postcss-cssnext": {},
-      autoprefixer: {},
       cssnano: ctx.env === "production" ? ctx.options.minify : false
     }
   };
