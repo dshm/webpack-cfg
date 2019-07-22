@@ -2,7 +2,7 @@ const spriteTPL = require("../sprite.tpl");
 
 module.exports = {
   src: {
-    cwd: "./src/images/sprite",
+    cwd: "./src/images/png-ico",
     glob: "*.png"
   },
   target: {
