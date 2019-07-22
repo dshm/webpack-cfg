@@ -1,0 +1,38 @@
+
+.icon-first, .icon-fourth, .icon-second, .icon-third {
+  background-image: url(~sprite.png);
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+    .icon-first, .icon-fourth, .icon-second, .icon-third {
+      background-image: url(~sprite@2x.png);
+      background-size: 129px 129px;
+    }
+}
+
+
+.icon-first {
+  background-position: 0px 0px;
+  width: 62px;
+  height: 62px;
+}
+
+.icon-fourth {
+  background-position: -67px 0px;
+  width: 62px;
+  height: 62px;
+}
+
+.icon-second {
+  background-position: 0px -67px;
+  width: 62px;
+  height: 62px;
+}
+
+.icon-third {
+  background-position: -67px -67px;
+  width: 62px;
+  height: 62px;
+}

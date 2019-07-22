@@ -41,6 +41,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.2",
     "file-loader": "^4.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
@@ -53,9 +54,8 @@
     "url-loader": "^2.0.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^3.7.2",
+    "webpack-spritesmith": "^1.0.1",
     "webpack-notifier": "^1.8.0",
     "html-webpack-plugin": "^3.2.0",
     "eslint-friendly-formatter": "^4.0.1",

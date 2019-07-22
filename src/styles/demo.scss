@@ -1,0 +1,17 @@
+html,
+body {
+  height: 100%;
+}
+.icons-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  &__item {
+    border-radius: 4px;
+    &:hover {
+      background-color: #efefef;
+      cursor: pointer;
+    }
+  }
+}

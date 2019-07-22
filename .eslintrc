@@ -16,6 +16,7 @@
   },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": 0,
     "no-underscore-dangle": [1, { "allow": ["_id"] }],
     "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
   }

@@ -1,7 +1,12 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
 const fs = require("fs");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const SpritesmithPlugin = require("webpack-spritesmith");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const spriteTPL = require("./sprite.tpl");
+
+const devMode = process.env.NODE_ENV !== "production";
 
 const loadHTML = () => {
   const files = fs.readdirSync("./src");
@@ -16,7 +21,39 @@ const loadHTML = () => {
 };
 
 module.exports = {
-  plugins: [...loadHTML()],
+  plugins: [
+    ...loadHTML(),
+    new SpritesmithPlugin({
+      src: {
+        cwd: path.resolve(__dirname, "src/images/sprite"),
+        glob: "*.png"
+      },
+      target: {
+        image: path.resolve(__dirname, "src/images/sprite.png"),
+        css: [
+          [
+            path.resolve(__dirname, "src/styles/sprite.scss"),
+            { format: "custom_format" }
+          ]
+        ]
+      },
+      apiOptions: {
+        cssImageRef: "~sprite.png"
+      },
+      retina: "@2x",
+      spritesmithOptions: {
+        padding: 5
+      },
+      customTemplates: {
+        custom_format: spriteTPL.defaultFormat,
+        custom_format_retina: spriteTPL.retinaFormat
+      }
+    }),
+    new MiniCssExtractPlugin({
+      filename: devMode ? "[name].css" : "[name].[hash].css",
+      chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
+    })
+  ],
   rules: [
     {
       test: /\.svg$/,
@@ -40,10 +77,10 @@ module.exports = {
     },
     {
       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-      loader: require.resolve("url-loader"),
+      loader: "file-loader",
       options: {
-        limit: 10000,
-        name: "images/"
+        name: "[name].[ext]",
+        outputPath: "images/"
       }
     },
     {
@@ -59,7 +96,12 @@ module.exports = {
     {
       test: /\.(sa|sc|c)ss$/,
       use: [
-        { loader: "style-loader" },
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            hmr: devMode
+          }
+        },
         { loader: "css-loader", options: { importLoaders: 2 } },
         {
           loader: "postcss-loader",

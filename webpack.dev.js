@@ -30,7 +30,8 @@ const config = {
     watchContentBase: true
   },
   resolve: {
-    extensions: [".js"]
+    extensions: [".js"],
+    modules: ["node_modules", "images"]
   },
   module: {
     strictExportPresence: true,
