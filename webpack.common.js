@@ -1,54 +1,17 @@
 const path = require("path");
-const fs = require("fs");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const SpritesmithPlugin = require("webpack-spritesmith");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const spriteTPL = require("./sprite.tpl");
+const loadHTML = require("./config/plugins/loadHTML");
+const spriteOptions = require("./config/plugins/sprite-options");
 
 const devMode = process.env.NODE_ENV !== "production";
-
-const loadHTML = () => {
-  const files = fs.readdirSync("./src");
-  const list = files.filter(file => file.includes(".html"));
-  return list.map(name => {
-    return new HtmlWebpackPlugin({
-      inject: true,
-      filename: name,
-      template: path.resolve(__dirname, `./src/${name}`)
-    });
-  });
-};
 
 module.exports = {
   plugins: [
     ...loadHTML(),
-    new SpritesmithPlugin({
-      src: {
-        cwd: path.resolve(__dirname, "src/images/sprite"),
-        glob: "*.png"
-      },
-      target: {
-        image: path.resolve(__dirname, "src/images/sprite.png"),
-        css: [
-          [
-            path.resolve(__dirname, "src/styles/sprite.scss"),
-            { format: "custom_format" }
-          ]
-        ]
-      },
-      apiOptions: {
-        cssImageRef: "~sprite.png"
-      },
-      retina: "@2x",
-      spritesmithOptions: {
-        padding: 5
-      },
-      customTemplates: {
-        custom_format: spriteTPL.defaultFormat,
-        custom_format_retina: spriteTPL.retinaFormat
-      }
-    }),
+    new SpritesmithPlugin(spriteOptions),
     new MiniCssExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
