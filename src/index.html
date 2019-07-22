@@ -4,10 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document title</title>
+    <title>App</title>
   </head>
 
   <body>
+    <div class="responsive-image">
+      <img
+        sizes="(mix-width: 768px)  50vw, 100vw"
+        srcset="/images/image-480w.jpg 480w, /images/image-800w.jpg 800w"
+        src="/images/image-800w.jpg"
+        alt="Responsive image"
+      />
+    </div>
+    <div class="title">PNG sprite</div>
     <div class="icons-list">
       <div class="icons-list__item icon-first"></div>
       <div class="icons-list__item icon-second"></div>

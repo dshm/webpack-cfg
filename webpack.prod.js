@@ -1,4 +1,6 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+
 const common = require("./webpack.common");
 
 const config = {
@@ -18,7 +20,12 @@ const config = {
     modules: ["node_modules", "images"]
   },
 
-  plugins: [...common.plugins]
+  plugins: [
+    ...common.plugins,
+    new CopyPlugin([
+      { from: "src/images/", to: "images/", ignore: ["png-ico/*", ".gitkeep"] }
+    ])
+  ]
 };
 
 module.exports = config;
