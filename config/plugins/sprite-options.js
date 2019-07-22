@@ -1,3 +1,4 @@
+const path = require("path");
 const spriteTPL = require("../sprite.tpl");
 
 module.exports = {
@@ -6,11 +7,16 @@ module.exports = {
     glob: "*.png"
   },
   target: {
-    image: "./src/images/sprite.png",
-    css: [["./src/styles/sprite.scss", { format: "custom_format" }]]
+    image: path.resolve(__dirname, "src/images/sprite.png"),
+    css: [
+      [
+        path.resolve(__dirname, "src/styles/sprite.scss"),
+        { format: "custom_format" }
+      ]
+    ]
   },
   apiOptions: {
-    cssImageRef: "~sprite.png"
+    cssImageRef: "../images/sprite.png"
   },
   retina: "@2x",
   spritesmithOptions: {

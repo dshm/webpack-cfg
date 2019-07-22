@@ -1,24 +1,21 @@
-body {
+body,
+html {
+  height: 100%;
 }
-.title {
-  font-size: 2rem;
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-}
+
 .icons-list {
   display: flex;
   height: 100%;
-  flex-direction: column;
-
-  @media (min-width: 40em) {
-    flex-direction: row;
+  justify-content: center;
+  &__title {
+    text-align: center;
+    margin-bottom: 1rem;
   }
   &__item {
-    border-radius: 4px;
-    margin: 0 20px;
-    &:hover {
-      background-color: #efefef;
-      cursor: pointer;
+    align-self: center;
+    margin: 0 2rem;
+    &--sprite {
+      @extend .icon-png;
     }
   }
 }

@@ -33,7 +33,9 @@ module.exports = {
                 removeAttrs: { attrs: ["width", "height", "xmlns:xlink"] }
               },
               { sortAttrs: true }
-            ]
+            ],
+            outputPath: "images/",
+            publicPath: "images/"
           }
         }
       ]
@@ -63,6 +65,8 @@ module.exports = {
         {
           loader: MiniCssExtractPlugin.loader,
           options: {
+            outputPath: "styles/",
+            publicPath: "styles/",
             hmr: devMode
           }
         },
