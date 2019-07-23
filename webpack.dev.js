@@ -1,4 +1,5 @@
 const path = require("path");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const common = require("./webpack.common");
 
 const eslintRules = () => {
@@ -27,7 +28,23 @@ const config = {
     hot: true,
     inline: true,
     port: 3000,
-    watchContentBase: true
+    watchContentBase: true,
+    stats: {
+      colors: true,
+      hash: false,
+      version: false,
+      timings: true,
+      assets: false,
+      chunks: false,
+      modules: false,
+      reasons: false,
+      children: false,
+      source: false,
+      errors: true,
+      errorDetails: true,
+      warnings: true,
+      publicPath: true
+    }
   },
   resolve: {
     extensions: [".js"],
@@ -43,7 +60,10 @@ const config = {
     ]
   },
 
-  plugins: [...common.plugins]
+  plugins: [
+    new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerPort: 3001 }),
+    ...common.plugins
+  ]
 };
 
 module.exports = config;

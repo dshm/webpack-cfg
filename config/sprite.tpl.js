@@ -1,74 +1,44 @@
-const template = sprite => {
-  const lines = sprite.split("\n").filter(item => item.trim().length);
-  const lastIndentLength = /^\s*/.exec(lines[lines.length - 1])[0].length;
-  return sprite
-    .split("\n")
-    .map(line => line.slice(lastIndentLength))
-    .join("\n");
-};
+const individualTemplate = item =>
+  `
+.icon-${item.name} {
+  background-position: ${item.offset_x}px ${item.offset_y}px;
+  width: ${item.width}px;
+  height: ${item.height}px;
+}
+  `;
 
-const defaultFormat = data => {
+const retinaTemplate = (data, commonSelectors) =>
+  `
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  ${commonSelectors} {
+    background-image: url("${data.retina_spritesheet.image}");
+    background-size: ${data.spritesheet.width}px ${data.spritesheet.height}px;
+  }
+}
+  `;
+
+const spriteTPL = data => {
   const imageURL = data.sprites[0].image;
 
-  const sharedSelector = data.sprites
-    .map(sprite => `.icon-${sprite.name}`)
-    .join(", ");
+  const commonSelectorsArray = data.sprites.map(
+    sprite => `.icon-${sprite.name}`
+  );
 
-  const shared = template(`
-    ${sharedSelector} {
-      background: url(${imageURL})
-    }
-  `);
+  const commonSelectors = commonSelectorsArray.join(", ");
 
-  const perImage = data.sprites
-    .map(sprite =>
-      template(`
-        .icon-${sprite.name} {
-          width: ${sprite.width}px;
-          height: ${sprite.height}px;
-          background-position: ${sprite.offset_x}px ${sprite.offset_y}px;
-        }
-      `)
-    )
-    .join("");
+  const individualItemsArray = data.sprites.map(item => {
+    return individualTemplate(item);
+  });
 
-  return `${shared}\n${perImage}`;
+  const individualItems = individualItemsArray.join("");
+
+  return `
+${commonSelectors} {
+  background-image: url("${imageURL}");
+}
+${individualItems}
+${retinaTemplate(data, commonSelectors)}
+`;
 };
 
-const retinaFormat = data => {
-  const imageURL = data.sprites[0].image;
-
-  const sharedSelector = data.sprites
-    .map(sprite => `.icon-${sprite.name}`)
-    .join(", ");
-
-  const shared = template(`
-    ${sharedSelector} {
-      background-image: url(${imageURL});
-    }
-  `);
-
-  const perImage = data.sprites
-    .map(sprite => {
-      return template(`
-        .icon-${sprite.name} {
-          background-position: ${sprite.offset_x}px ${sprite.offset_y}px;
-          width: ${sprite.width}px;
-          height: ${sprite.height}px;
-        }
-      `);
-    })
-    .join("");
-
-  return `${shared}\n${template(`
-        @media (-webkit-min-device-pixel-ratio: 2),
-                (min-resolution: 192dpi) {
-            ${sharedSelector} {
-              background-image: url(${data.retina_spritesheet.image});
-              background-size: ${data.spritesheet.width}px ${data.spritesheet.height}px;
-            }
-        }
-      `)}\n${perImage}`;
-};
-
-module.exports = { defaultFormat, retinaFormat };
+module.exports = spriteTPL;

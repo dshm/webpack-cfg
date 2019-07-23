@@ -17,7 +17,6 @@ module.exports = {
     padding: 5
   },
   customTemplates: {
-    custom_format: spriteTPL.defaultFormat,
-    custom_format_retina: spriteTPL.retinaFormat
+    custom_format_retina: spriteTPL
   }
 };
