@@ -13,8 +13,8 @@ module.exports = {
     ...loadHTML(),
     new SpritesmithPlugin(spriteOptions),
     new MiniCssExtractPlugin({
-      filename: devMode ? "[name].css" : "[name].[hash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
+      filename: "styles/[name].css",
+      chunkFilename: "styles/[id].css"
     })
   ],
   rules: [
@@ -60,6 +60,19 @@ module.exports = {
       }
     },
     {
+      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "fonts/",
+            publicPath: "fonts/"
+          }
+        }
+      ]
+    },
+    {
       test: /\.(sa|sc|c)ss$/,
       use: [
         {
@@ -70,7 +83,10 @@ module.exports = {
             hmr: devMode
           }
         },
-        { loader: "css-loader", options: { importLoaders: 2 } },
+        {
+          loader: "css-loader",
+          options: { importLoaders: 2, url: false, sourceMap: true }
+        },
         {
           loader: "postcss-loader",
           options: {

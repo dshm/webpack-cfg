@@ -22,12 +22,11 @@ const config = {
   mode: "development",
   entry: ["./src/scripts/index.js"],
   devServer: {
-    contentBase: path.join(__dirname, "src/"),
+    contentBase: path.join(__dirname, "src"),
     compress: true,
     hot: true,
     inline: true,
     port: 3000,
-    open: true,
     watchContentBase: true
   },
   resolve: {

@@ -26,7 +26,8 @@ const config = {
     ...common.plugins,
     new CopyPlugin([
       { from: "src/images/", to: "images/", ignore: ["png-ico/*", ".gitkeep"] },
-      { from: "src/data/", to: "data/", ignore: [".gitkeep"] }
+      { from: "src/data/", to: "data/", ignore: [".gitkeep"] },
+      { from: "src/fonts/", to: "fonts/", ignore: [".gitkeep"] }
     ])
   ],
   optimization: {
