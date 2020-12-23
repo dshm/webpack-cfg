@@ -14,15 +14,15 @@ module.exports = {
     new SpritesmithPlugin(spriteOptions),
     new MiniCssExtractPlugin({
       filename: "styles/[name].css",
-      chunkFilename: "styles/[id].css"
-    })
+      chunkFilename: "styles/[id].css",
+    }),
   ],
   rules: [
     {
       test: /\.svg$/,
       use: [
         {
-          loader: "raw-loader"
+          loader: "raw-loader",
         },
         {
           loader: "svgo-loader",
@@ -30,15 +30,15 @@ module.exports = {
             plugins: [
               { removeViewBox: false },
               {
-                removeAttrs: { attrs: ["width", "height", "xmlns:xlink"] }
+                removeAttrs: { attrs: ["width", "height", "xmlns:xlink"] },
               },
-              { sortAttrs: true }
+              { sortAttrs: true },
             ],
             outputPath: "images/",
-            publicPath: "images/"
-          }
-        }
-      ]
+            publicPath: "images/",
+          },
+        },
+      ],
     },
     {
       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
@@ -46,8 +46,8 @@ module.exports = {
       options: {
         name: "[name].[ext]",
         outputPath: "images/",
-        publicPath: "images/"
-      }
+        publicPath: "images/",
+      },
     },
     {
       test: /\.(js|jsx)$/,
@@ -55,9 +55,9 @@ module.exports = {
       use: {
         loader: "babel-loader",
         options: {
-          presets: ["@babel/preset-env"]
-        }
-      }
+          presets: ["@babel/preset-env"],
+        },
+      },
     },
     {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -67,10 +67,10 @@ module.exports = {
           options: {
             name: "[name].[ext]",
             outputPath: "fonts/",
-            publicPath: "fonts/"
-          }
-        }
-      ]
+            publicPath: "fonts/",
+          },
+        },
+      ],
     },
     {
       test: /\.(sa|sc|c)ss$/,
@@ -78,26 +78,26 @@ module.exports = {
         {
           loader: MiniCssExtractPlugin.loader,
           options: {
-            outputPath: "styles/",
-            publicPath: "styles/",
-            hmr: devMode
-          }
+            esModule: true,
+            modules: {
+              namedExport: true,
+            },
+          },
         },
         {
           loader: "css-loader",
-          options: { importLoaders: 2, url: false, sourceMap: true }
+          options: { importLoaders: 2, url: false, sourceMap: true },
         },
         {
           loader: "postcss-loader",
           options: {
-            ident: "postcss",
-            config: {
-              path: path.resolve(__dirname, "./postcss.config.js")
-            }
-          }
+            postcssOptions: {
+              config: path.resolve(__dirname, "./postcss.config.js"),
+            },
+          },
         },
-        "sass-loader"
-      ]
-    }
-  ]
+        "sass-loader",
+      ],
+    },
+  ],
 };
