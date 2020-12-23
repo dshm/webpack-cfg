@@ -21,6 +21,7 @@ const eslintRules = () => {
 
 const config = {
   mode: "development",
+  target: "web",
   entry: ["./src/scripts/index.js"],
   devServer: {
     contentBase: path.join(__dirname, "src"),

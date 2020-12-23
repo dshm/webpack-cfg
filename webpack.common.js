@@ -6,8 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const loadHTML = require("./config/plugins/loadHTML");
 const spriteOptions = require("./config/plugins/sprite-options");
 
-const devMode = process.env.NODE_ENV !== "production";
-
 module.exports = {
   plugins: [
     ...loadHTML(),

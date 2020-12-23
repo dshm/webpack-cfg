@@ -7,6 +7,7 @@ const common = require("./webpack.common");
 
 const config = {
   mode: "production",
+  target: "web",
   entry: "./src/scripts/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -24,11 +25,27 @@ const config = {
 
   plugins: [
     ...common.plugins,
-    new CopyPlugin([
-      { from: "src/images/", to: "images/", ignore: ["png-ico/*", ".gitkeep"] },
-      { from: "src/data/", to: "data/", ignore: [".gitkeep"] },
-      { from: "src/fonts/", to: "fonts/", ignore: [".gitkeep"] },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "src/images/",
+          to: "images/",
+          globOptions: {
+            ignore: ["png-ico/*", ".gitkeep"],
+          },
+        },
+        {
+          from: "src/data/",
+          to: "data/",
+          globOptions: { ignore: [".gitkeep"] },
+        },
+        {
+          from: "src/fonts/",
+          to: "fonts/",
+          globOptions: { ignore: [".gitkeep"] },
+        },
+      ],
+    }),
   ],
   optimization: {
     minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
